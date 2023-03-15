@@ -4,7 +4,7 @@ module.exports.index = (request, response) => {
         message: "Hello World"
     });
 }
-          /* The method below is new */
+    
 module.exports.createPerson = (request, response) => {
     // Mongoose's "create" method is run using our Person model to add a new person to our db's person collection.
     // request.body will contain something like {firstName: "Billy", lastName: "Washington"} from the client
@@ -22,4 +22,9 @@ module.exports.getAllPeople = (request, response) => {
             console.log(err)
             response.json(err)
         })
+}
+module.exports.getPerson = (request, response) => {
+    Person.findOne({_id:request.params.id})
+        .then(person => response.json(person))
+        .catch(err => response.json(err));
 }
